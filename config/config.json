@@ -1,0 +1,8 @@
+{
+    "mySqlConnection": {
+        "server": "localhost",
+        "database": "dashboard2020",
+        "user": "root",
+        "password": ""
+    }
+}
