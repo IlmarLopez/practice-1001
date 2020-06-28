@@ -7,10 +7,21 @@ require_once('models/user.php');
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if ($parameters == '') {
         //get all
-        echo json_encode(array(
-            'status' => 0,
-            'users' => json_decode(User::getAllToJson())
-        ));
+        if ($action == '') {
+            echo json_encode(array(
+                'status' => 0,
+                'users' => json_decode(User::getAllToJson())
+            ));
+        }
+        // login
+        if ($action == 'login') {
+            // read headers
+            $headers = getallheaders();
+            // verify headers
+            if (isset($headers['username']) && isset($headers['password'])) {
+            } else
+                echo json_encode(array('status' => 501, 'errorMessage' => 'Missing security headers'));
+        }
     } else {
         //get one
         try {
