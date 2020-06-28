@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2020 at 10:16 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.7
+-- Generation Time: Jun 29, 2020 at 12:04 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -45,7 +44,6 @@ INSERT INTO `devices` (`id`, `name`, `idType`, `ipAddress`) VALUES
 ('LH', 'Lawn humidity', 'HMD', '192.168.0.5'),
 ('ODT', 'Outdoor temperature', 'TMP', '192.168.0.1'),
 ('RW', 'Roof wind ', 'WND', '192.168.0.4'),
-('SM', 'HSSHDAJD', 'HMD', '192.198.23.3'),
 ('WL', 'Windt level', 'WND', '192.168.0.2');
 
 -- --------------------------------------------------------
@@ -102,6 +100,68 @@ INSERT INTO `readings` (`id`, `idDevice`, `dateTime`, `value`) VALUES
 (9, 'RW', '2020-05-14 22:23:00', 28.2),
 (10, 'WL', '2020-05-14 22:24:00', 43.3);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` varchar(5) NOT NULL,
+  `name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`) VALUES
+('1', 'SA'),
+('2', 'USER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` varchar(20) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `photo` varchar(20) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `photo`, `password`) VALUES
+('1', 'test1', NULL, 'test1'),
+('2', 'test2', NULL, 'test2'),
+('3', 'test3', NULL, 'test3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usersroles`
+--
+
+CREATE TABLE `usersroles` (
+  `id` int(11) NOT NULL,
+  `idUser` varchar(20) DEFAULT NULL,
+  `idRole` varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usersroles`
+--
+
+INSERT INTO `usersroles` (`id`, `idUser`, `idRole`) VALUES
+(1, '1', '1'),
+(2, '2', '2'),
+(3, '3', '2');
+
 --
 -- Indexes for dumped tables
 --
@@ -127,6 +187,28 @@ ALTER TABLE `readings`
   ADD KEY `fkReadingDevice` (`idDevice`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_id_uindex` (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_id_uindex` (`id`);
+
+--
+-- Indexes for table `usersroles`
+--
+ALTER TABLE `usersroles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usersroles_roles_id_fk` (`idRole`),
+  ADD KEY `usersroles_users_id_fk` (`idUser`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -135,6 +217,12 @@ ALTER TABLE `readings`
 --
 ALTER TABLE `readings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `usersroles`
+--
+ALTER TABLE `usersroles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -151,6 +239,13 @@ ALTER TABLE `devices`
 --
 ALTER TABLE `readings`
   ADD CONSTRAINT `fkReadingDevice` FOREIGN KEY (`idDevice`) REFERENCES `devices` (`id`);
+
+--
+-- Constraints for table `usersroles`
+--
+ALTER TABLE `usersroles`
+  ADD CONSTRAINT `usersroles_roles_id_fk` FOREIGN KEY (`idRole`) REFERENCES `roles` (`id`),
+  ADD CONSTRAINT `usersroles_users_id_fk` FOREIGN KEY (`idUser`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
