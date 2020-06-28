@@ -1,0 +1,181 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+body {
+  background: #000;
+  margin: 0;
+}
+header {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  color: #fff;
+  background: #333;
+}
+#headerLeft,
+#menu,
+#logo {
+  position: relative;
+  float: left;
+}
+
+#headerLeft {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+#menu {
+  margin: 0px 10px 0px 10px;
+}
+#logo img {
+  height: 50px;
+}
+#logo {
+  width: 250px;
+  height: 49px;
+}
+
+#headerright {
+  position: relative;
+  float: right;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+#userphoto,
+.headericon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+#userphoto img {
+  height: 32px;
+  border-radius: 16px;
+}
+
+/* icons */
+.large-icon {
+  font-size: 32px;
+}
+.icon {
+  font-size: 24px;
+}
+.large-icon,
+.icon {
+  cursor: pointer;
+}
+
+/* dark theme */
+.dark-icon {
+  color: #ddd;
+}
+.dark-icon:hover {
+  color: #fff;
+}
+
+/* light theme */
+.light-icon {
+  color: #555;
+}
+.light-icon:hover {
+  color: #777;
+}
+
+/*devices*/
+#devicelist,
+.device,
+.devicename,
+.deviceicon,
+.devicetype,
+.deviceip {
+  position: relative;
+  float: left;
+}
+#devicelist {
+  width: 30%;
+  height: 564px;
+  margin: 10px;
+  background: #333;
+  overflow-y: scroll;
+}
+#devicelist::-webkit-scrollbar {
+  width: 8px;
+  background: gray;
+}
+.device {
+  border-bottom: 1px solid #555;
+  cursor: pointer;
+}
+.device:hover {
+  background: #444;
+}
+.devicename {
+  width: calc(100% - 20px);
+  font-size: 14pt;
+  color: #eee;
+  margin: 10px;
+}
+.deviceicon {
+  width: 32px;
+  height: 32px;
+  margin: 0px 10px 10px 10px;
+}
+.devicetype,
+.deviceip {
+  font-size: 12pt;
+  color: #aaa;
+}
+.devicetype {
+  width: calc(100% - 62px);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  margin: 0px 10px 10px 0px;
+}
+.deviceip {
+  width: calc(100% - 20px);
+  margin: 0px 10px 10px 10px;
+}
+
+#devicename {
+  display: flex;
+  align-items: center;
+  float: right;
+  width: 65%;
+  height: 50px;
+  margin: 10px 20px 7px 0px;
+  background: #333;
+  color: #fff;
+  padding-left: 5px;
+}
+#devicetype {
+  display: flex;
+  float: right;
+  width: 65%;
+  height: 50px;
+  margin: 7px 20px 7px 0px;
+  background: #333;
+}
+#typeicon {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  background: #333;
+}
+#typename {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  width: 55%;
+  height: 50px;
+  color: #fff;
+  background: #333;
+}
+#chart {
+  display: flex;
+  float: right;
+  width: 65%;
+  height: 420px;
+  margin: 7px 20px 7px 0px;
+  background: #333;
+}

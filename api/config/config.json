@@ -1,5 +1,9 @@
 {
-    "mySqlConnection": {
+    "files" : {
+        "icons": "http://localhost/dashboard2020/icons/"
+
+    },
+    "mySqlConnection" : {
         "server": "localhost",
         "database": "dashboard2020",
         "user": "root",

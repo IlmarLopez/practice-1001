@@ -1,0 +1,33 @@
+{
+    "id":36,
+    "name":{
+        "firstName": "karen",
+        "lastName": "Sanchez"
+    },
+    "address": {
+        "streetName": "Main street",
+        "streetNumber": "764374",
+        "city":{
+            "id": 2,
+            "name": "San Diego"
+        }
+    },
+    "phoneNumber":[
+        {
+            "areaCode":664,
+            "number":5345345345,
+            "type": {
+                "id":"MB",
+                "name":"Mobile"
+            }
+        },
+        {
+            "areaCode":664,
+            "number":5345345345,
+            "type": {
+                "id":"WK",
+                "name":"Work"
+            }
+        }
+    ]
+}

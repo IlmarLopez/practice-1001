@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--title-->
+    <title>Dashboard</title>
+    <!--javascript-->
+    <script src="js/fontawesome/solid.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/highcharts.js"></script>
+    <!--stylesheets-->
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/fontawesome/fontawesome.css" rel="stylesheet" />
+    <link href="css/fontawesome/solid.css" rel="stylesheet" />
+    <!--metadata-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+  </head>
+  <body onload="init();">
+    <header>
+      <div id="headerLeft">
+        <div id="menu"><i class="fas fa-bars large-icon dark-icon"></i></div>
+        <div id="logo"><img src="images/logo_white.png" alt="" /></div>
+      </div>
+      <div id="headerright">
+        <div id="userphoto"><img src="users/1001.png" alt="" /></div>
+        <div class="headericon">
+          <i class="fas fa-wrench large-icon dark-icon"></i>
+        </div>
+        <div class="headericon">
+          <i class="fas fa-sign-out-alt icon dark-icon"></i>
+        </div>
+      </div>
+    </header>
+    <div id="devicelist"></div>
+    <div id="devicename">aqui va el devicename</div>
+    <div id="devicetype">
+      <img src="../icons/humidity.png" alt="" id="typeicon" />
+      <div id="typename">typename</div>
+    </div>
+    <div id="chart">aqui va el chart</div>
+  </body>
+</html>
