@@ -3,14 +3,17 @@
 header('Access-Control-Allow-Origin:*');
 //allow methods
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-//  allow headers
-header('Access-Control-Allow-Header: username, password, token');
+// allow headers
+header('Access-Control-Allow-Headers: username, password, token');
 
-//REQUEST_URI=toDO despues del dominio, PHP_SELF: nombre del archivo de script ejecutándose actualmente
-//dirname: nombre la ruta de un directorio padre, substr(string, start): returns a part of a string.
+// require files
+require_once('config/security.php');
+
+// read headers
+$headers = getallheaders();
+
+// read request URL
 $requestUrl = substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['PHP_SELF'])));
-//
-//echo $requestUrl;
 
 //Explode request url
 $urlParts = explode('/', $requestUrl);
@@ -19,8 +22,7 @@ $urlParts = explode('/', $requestUrl);
 if (sizeof($urlParts) == 3 || sizeof($urlParts) == 4) {
     //controller
     $controller = $urlParts[1];
-
-    //if url has action
+    // url has action
     if (sizeof($urlParts) == 4) {
         $action = $urlParts[2];
         $parameters = $urlParts[3];
@@ -28,15 +30,38 @@ if (sizeof($urlParts) == 3 || sizeof($urlParts) == 4) {
         $action = '';
         $parameters = $urlParts[2];
     }
-    //require controller file
-    $controller .= 'controller.php';
-    if (file_exists($controller)) {
-        require_once($controller);
-    } else
-        echo json_encode(array(
-            'status' => 998,
-            'errorMessage' => 'invalid controller'
-        ));
+    // access
+    $access = true;
+    // not login
+    if ($controller != 'user' && $action != 'login') {
+        if (isset($headers['username'])  && isset($headers['token'])) {
+            if ($headers['token'] != Security::generateToken($headers['username'])) {
+                $access = false;
+                echo json_encode(array(
+                    'status' => 500,
+                    'errorMessage' => 'Invalid token'
+                ));
+            }
+        } else {
+            $access = false;
+            echo json_encode(array(
+                'status' => 501,
+                'errorMessage' => 'Missing security headers'
+            ));
+        }
+    }
+    // access granted
+    if ($access) {
+        //require controller file
+        $controller .= 'controller.php';
+        if (file_exists($controller)) {
+            require_once($controller);
+        } else
+            echo json_encode(array(
+                'status' => 998,
+                'errorMessage' => 'invalid controller'
+            ));
+    }
 } else
     echo json_encode(array(
         'status' => 999,
