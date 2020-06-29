@@ -5,7 +5,7 @@ require_once('role.php');
 require_once(__DIR__ . '/../config/exceptions/accessdeniedexception.php');
 require_once(__DIR__ . '/../config/exceptions/recordnotfoundexception.php');
 require_once(__DIR__ . '/../config/config.php');
-// require_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard2020/api/config/exceptions/recordnotfoundexception.php');
+require_once(__DIR__ . '/../config/security.php');
 class User
 {
     //attributes
@@ -140,6 +140,7 @@ class User
             'roles' => $this->roles,
             'photo' => Config::getFileUrl('userPhotos') . $this->photo,
             'roles' => json_decode($this->getRolesToJson()),
+            'token' => Security::generateToken($this->id),
         ));
     }
     public function toJsonFull()
