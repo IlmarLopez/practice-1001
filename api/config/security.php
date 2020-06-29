@@ -15,4 +15,9 @@ class Security
     }
     return $token; // return token
   }
+
+  public static function userBelongsToRole($username, $roles)
+  {
+    return true;
+  }
 }

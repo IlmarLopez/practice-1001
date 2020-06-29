@@ -8,10 +8,13 @@
         if ($parameters == '') {
             //get all
             if ($action == '') {
-                echo json_encode(array(
-                    'status' => 0,
-                    'users' => json_decode(User::getAllToJson())
-                ));
+                // authorazation
+                if (User::belongsToRole($headers['username'], ['SA', 'SUPER'])) {
+                    echo json_encode(array(
+                        'status' => 0,
+                        'users' => json_decode(User::getAllToJson())
+                    ));
+                } else echo json_encode(array('status' => 502, 'errorMessage' => 'User does not have access to this module'));
             }
             // login
             if ($action == 'login') {

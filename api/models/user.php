@@ -65,7 +65,7 @@ class User
         //create object with data from database
         if (func_num_args() == 1) {
             //query
-            $query = 'SELECT id, name, photo, password FROM users WHERE id= ?';
+            $query = 'SELECT id, name, photo FROM users WHERE id= ?';
             $connection = MySqlConnection::getConnection(); // get connection
             $command = $connection->prepare($query); //prepare command (avoid injection)
             $command->bind_param('s', $arguments[0]); //bind parameters
@@ -74,7 +74,6 @@ class User
                 $id,
                 $name,
                 $photo,
-                $password,
             );
             $command->execute(); //execute
             //row found
@@ -83,13 +82,11 @@ class User
                 $this->id = $id;
                 $this->name = $name;
                 $this->photo = $photo;
-                $this->password = $password;
             } else {
                 throw new RecordNotFoundException($arguments[0]);
             }
             mysqli_stmt_close($command); //close command
-            $connection->close(); //close conection
-
+            $connection->close(); //close conection 
         }
 
         // login
@@ -226,5 +223,21 @@ class User
             array_push($list, json_decode($item->toJsonFull()));
         }
         return json_encode($list);
+    }
+
+    // check if user belongs to one of the roles in the array
+    public static function belongsToRole($username, $roles)
+    {
+        $result = false;
+        try {
+            $user = new User($username);
+            foreach ($user->getRoles() as $role) {
+                for ($i = 0; $i < sizeof($roles); $i++) {
+                    if ($role->getId() == $roles[$i]) $result = true;
+                }
+            }
+        } catch (RecordNotFoundException $ex) {
+        }
+        return $result;
     }
 }
