@@ -1,6 +1,12 @@
 function init() {
   console.log("initializing...");
-  getDevices();
+  // user is authencated
+  if (sessionStorage.userInfo != null) {
+    getDevices();
+  } else {
+    sessionStorage.previusPage = "index.html";
+    window.location = "login.html";
+  }
 }
 function getDeviceById(id) {
   var x = new XMLHttpRequest();
