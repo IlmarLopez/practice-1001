@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2020 at 12:04 AM
+-- Generation Time: Jun 29, 2020 at 06:24 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -116,8 +116,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-('1', 'SA'),
-('2', 'USER');
+('SA', 'System Administrator'),
+('SUPER', 'Supervisor'),
+('USER', 'User');
 
 -- --------------------------------------------------------
 
@@ -137,9 +138,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `photo`, `password`) VALUES
-('1', 'test1', NULL, 'test1'),
-('2', 'test2', NULL, 'test2'),
-('3', 'test3', NULL, 'test3');
+('admin', 'Administrator', 'admin.png', '6367c48dd193d56ea7b0baad25b19455e529f5ee'),
+('glopez', 'Guadalupe López', 'glopez.png', '6367c48dd193d56ea7b0baad25b19455e529f5ee'),
+('jperez', 'José Perez', 'jperez.png', '6367c48dd193d56ea7b0baad25b19455e529f5ee'),
+('jsmith', 'John Smit', 'jsmith.png', '6367c48dd193d56ea7b0baad25b19455e529f5ee'),
+('mjones', 'Mary Jones', 'mjones.png', '6367c48dd193d56ea7b0baad25b19455e529f5ee');
 
 -- --------------------------------------------------------
 
@@ -158,9 +161,13 @@ CREATE TABLE `usersroles` (
 --
 
 INSERT INTO `usersroles` (`id`, `idUser`, `idRole`) VALUES
-(1, '1', '1'),
-(2, '2', '2'),
-(3, '3', '2');
+(11, 'admin', 'SA'),
+(12, 'jsmith', 'SUPER'),
+(13, 'jsmith', 'USER'),
+(14, 'mjones', 'USER'),
+(15, 'jperez', 'SUPER'),
+(16, 'jperez', 'USER'),
+(17, 'glopez', 'USER');
 
 --
 -- Indexes for dumped tables
@@ -205,8 +212,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `usersroles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usersroles_roles_id_fk` (`idRole`),
-  ADD KEY `usersroles_users_id_fk` (`idUser`);
+  ADD KEY `usersroles_users_id_fk` (`idUser`),
+  ADD KEY `usersroles_roles_id_fk` (`idRole`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -222,7 +229,7 @@ ALTER TABLE `readings`
 -- AUTO_INCREMENT for table `usersroles`
 --
 ALTER TABLE `usersroles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
