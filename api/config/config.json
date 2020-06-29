@@ -1,12 +1,12 @@
 {
-    "files" : {
-        "icons": "http://localhost/dashboard2020/icons/"
-
-    },
-    "mySqlConnection" : {
-        "server": "localhost",
-        "database": "dashboard2020",
-        "user": "root",
-        "password": ""
-    }
+  "files": {
+    "icons": "http://localhost/dashboard2020/icons/",
+    "userPhotos": "http://localhost/dashboard2020/users/"
+  },
+  "mySqlConnection": {
+    "server": "localhost",
+    "database": "dashboard2020",
+    "user": "root",
+    "password": ""
+  }
 }

@@ -24,7 +24,7 @@
                 if (isset($headers['username']) && isset($headers['password'])) {
                     try {
                         $u = new User($headers['username'], $headers['password']);
-                        echo json_encode(array('status' => 0, 'user' => json_decode($u->toJson())));
+                        echo json_encode(array('status' => 0, 'user' => json_decode($u->toJsonFull())));
                     } catch (AccessDeniedException $ex) {
                         echo json_encode(array('status' => 500, 'errorMessage' => $ex->getMessage()));
                     }

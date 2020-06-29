@@ -134,28 +134,38 @@ class User
         return json_encode(array(
             'id' => $this->id,
             'name' => $this->name,
-            'roles' => $this->roles,
+            'photo' => Config::getFileUrl('userPhotos') . $this->photo,
+        ));
+    }
+
+    //represent the object's header in json format
+    public function toJsonFull()
+    {
+        return json_encode(array(
+            'id' => $this->id,
+            'name' => $this->name,
             'photo' => Config::getFileUrl('userPhotos') . $this->photo,
             'roles' => json_decode($this->getRolesToJson()),
             'token' => Security::generateToken($this->id),
         ));
     }
-    public function toJsonFull()
-    {
-        //get roles
-        $list = array(); //empty list
-        foreach ($this->getRoles() as $item) {
-            //add item to list
-            array_push($list, json_decode($item->toJson()));
-        }
-        //return  JSON
-        return json_encode(array(
-            'id' => $this->id,
-            'name' => $this->name,
-            'photo' => $this->photo,
-            'roles' => $list
-        ));
-    }
+
+    // public function toJsonFull()
+    // {
+    //     //get roles
+    //     $list = array(); //empty list
+    //     foreach ($this->getRoles() as $item) {
+    //         //add item to list
+    //         array_push($list, json_decode($item->toJson()));
+    //     }
+    //     //return  JSON
+    //     return json_encode(array(
+    //         'id' => $this->id,
+    //         'name' => $this->name,
+    //         'photo' => $this->photo,
+    //         'roles' => $list
+    //     ));
+    // }
 
 
     //return a list of all the roles
