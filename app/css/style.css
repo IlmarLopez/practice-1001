@@ -196,12 +196,13 @@ input {
   margin: 0.2em 0 0.6em;
   font-size: 1.2em;
 }
-input[type="submit"] {
+#buttonlogin {
   background: salmon;
   border: none;
   margin: 1em 0;
   color: white;
   padding: 1em;
+  width: 100%;
 }
 .message {
   background: blanchedalmond;

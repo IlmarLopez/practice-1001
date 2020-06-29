@@ -24,18 +24,20 @@
     <div id="login">
       <h1>Log in</h1>
 
-      <div class="message">Sorry, That login is incorrect</div>
+      <div id="errorlabel" class="message">
+        Sorry, That login is incorrect
+      </div>
 
-      <form class="login-form">
+      <div class="login-form">
         <label>Username:</label>
-        <input type="text" name="username" />
+        <input id="inputusername" type="text" name="username" />
 
         <label>Password:</label>
-        <input type="password" name="password" />
+        <input id="inputpassword" type="password" name="password" />
 
-        <input type="submit" value="Log In" />
+        <button id="buttonlogin">Log In</button>
         <input type="hidden" name="did_login" value="true" />
-      </form>
+      </div>
     </div>
   </body>
 </html>
