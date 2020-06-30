@@ -12,7 +12,7 @@ export function authenticate(username, password) {
     .catch(() => "Invalid API");
 }
 
-export function closeSession() {
+export function logout() {
   sessionStorage.userInfo = null;
   window.location = 'login.html';
 }

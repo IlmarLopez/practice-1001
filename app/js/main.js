@@ -10,7 +10,8 @@ document.getElementById('signout').addEventListener('click', () => {
 function init() {
   console.log("initializing...");
   // user is authencated
-  if (typeof sessionStorage.userInfo !== 'undefined' || sessionStorage.userInfo !== null) {
+  console.log(sessionStorage.userInfo);
+  if (typeof sessionStorage.userInfo !== 'undefined' && sessionStorage.userInfo !== null) {
     showUser(JSON.parse(sessionStorage.userInfo));
     getDevices();
   } else {
