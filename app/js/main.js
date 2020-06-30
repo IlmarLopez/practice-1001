@@ -2,6 +2,7 @@ function init() {
   console.log("initializing...");
   // user is authencated
   if (sessionStorage.userInfo != null) {
+    showUser(JSON.parse(sessionStorage.userInfo));
     getDevices();
   } else {
     sessionStorage.previusPage = "index.html";
@@ -26,6 +27,13 @@ function getDeviceById(id) {
     }
   };
 }
+
+function showUser(user) {
+  console.log('Showing user info...');
+  console.log(user);
+  document.getElementById('photouser').src = user.photo;
+}
+
 function getDevices() {
   console.log("Getting devices");
   var x = new XMLHttpRequest();
