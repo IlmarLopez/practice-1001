@@ -1,7 +1,16 @@
+// import functions
+import { logout } from './services/users.js';
+
+// events
+window.onload = init();
+document.getElementById('signout').addEventListener('click', () => {
+  logout();
+})
+
 function init() {
   console.log("initializing...");
   // user is authencated
-  if (sessionStorage.userInfo != null) {
+  if (typeof sessionStorage.userInfo !== 'undefined' || sessionStorage.userInfo !== null) {
     showUser(JSON.parse(sessionStorage.userInfo));
     getDevices();
   } else {

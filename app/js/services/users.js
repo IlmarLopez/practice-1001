@@ -11,3 +11,8 @@ export function authenticate(username, password) {
     .then(res => res.json())
     .catch(() => "Invalid API");
 }
+
+export function closeSession() {
+  sessionStorage.userInfo = null;
+  window.location = 'login.html';
+}
