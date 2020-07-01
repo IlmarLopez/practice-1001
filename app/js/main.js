@@ -65,10 +65,13 @@ function showDevices(devices) {
     //add parent
     document.getElementById("devicelist").appendChild(divDevice);
     
+    // event listener
     document.getElementById(d.id).addEventListener('click', () => {
       getDeviceById(d.id).then((response) => {
-        showDeviceInfo(response.device);
-        showChart(response.device);
+        if (response.status === 0) {
+          showDeviceInfo(response.device);
+          showChart(response.device);
+        }
       });
     })
   });
