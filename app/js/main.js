@@ -1,5 +1,7 @@
 // import functions
 import { logout } from './services/users.js';
+import { getAllDevices, getDeviceById } from './services/devices.js';
+import { config } from './services/config.js';
 
 // events
 window.onload = init();
@@ -11,31 +13,15 @@ function init() {
   console.log("initializing...");
   // user is authencated
   console.log(sessionStorage.userInfo);
-  if (typeof sessionStorage.userInfo !== 'undefined' && sessionStorage.userInfo !== null) {
-    showUser(JSON.parse(sessionStorage.userInfo));
-    getDevices();
+  if (typeof sessionStorage.userInfo !== 'undefined' && sessionStorage.userInfo !== 'null') {
+    var user = JSON.parse(sessionStorage.userInfo);
+    config.user = user;
+    showUser(user);
+    getAllDevices().then((response) => { console.log(response); showDevices(response.devices); });
   } else {
     sessionStorage.previusPage = "index.html";
     window.location = "login.html";
   }
-}
-function getDeviceById(id) {
-  var x = new XMLHttpRequest();
-  x.open("GET", "http://localhost/dashboard2020/api/devices/" + id);
-  x.send();
-  x.onreadystatechange = function () {
-    //readystate 4= back with response
-    if (x.readyState == 4 && x.status == 200) {
-      //parse result to json
-      var jsonData = JSON.parse(x.responseText);
-      console.log(jsonData);
-      //check status
-      if (jsonData.status == 0) {
-        showDeviceInfo(jsonData.device);
-        showChart(jsonData.device);
-      }
-    }
-  };
 }
 
 function showUser(user) {
@@ -44,25 +30,6 @@ function showUser(user) {
   document.getElementById('photouser').src = user.photo;
 }
 
-function getDevices() {
-  console.log("Getting devices");
-  var x = new XMLHttpRequest();
-  x.open("GET", "http://localhost/dashboard2020/api/devices/");
-  x.send();
-  x.onreadystatechange = function () {
-    //readystate 4= back with response
-    if (x.readyState == 4 && x.status == 200) {
-      //parse result to json
-      var jsonData = JSON.parse(x.responseText);
-      console.log(jsonData);
-      //check status
-      if (jsonData.status == 0) {
-        showDevices(jsonData.devices);
-      }
-    }
-  };
-  //showDevices();
-}
 function showDevices(devices) {
   console.log(devices);
   //read devices
@@ -70,7 +37,8 @@ function showDevices(devices) {
     console.log(d);
     var divDevice = document.createElement("div");
     divDevice.className = "device";
-    divDevice.setAttribute("onclick", `getDeviceById('${d.id}')`);
+    divDevice.id = d.id;
+    // divDevice.setAttribute("onclick", `getDeviceById('${d.id}')`);
 
     //name
     var divName = document.createElement("div");
@@ -96,6 +64,13 @@ function showDevices(devices) {
     divDevice.appendChild(divIp);
     //add parent
     document.getElementById("devicelist").appendChild(divDevice);
+    
+    document.getElementById(d.id).addEventListener('click', () => {
+      getDeviceById(d.id).then((response) => {
+        showDeviceInfo(response.device);
+        showChart(response.device);
+      });
+    })
   });
 }
 function showDeviceInfo(device) {
